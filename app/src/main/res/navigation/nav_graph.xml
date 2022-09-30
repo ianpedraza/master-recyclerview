@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.ianpedraza.masterrecylerview.ui.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_staggeredGridFragment"
+            app:destination="@id/staggeredGridFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_gridFragment"
+            app:destination="@id/gridFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_linearFragment"
+            app:destination="@id/linearFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/linearFragment"
+        android:name="com.ianpedraza.masterrecylerview.ui.linear.LinearFragment"
+        android:label="fragment_linear"
+        tools:layout="@layout/fragment_linear" />
+    <fragment
+        android:id="@+id/staggeredGridFragment"
+        android:name="com.ianpedraza.masterrecylerview.ui.staggered.StaggeredGridFragment"
+        android:label="fragment_staggered_grid"
+        tools:layout="@layout/fragment_staggered_grid" />
+    <fragment
+        android:id="@+id/gridFragment"
+        android:name="com.ianpedraza.masterrecylerview.ui.grid.GridFragment"
+        android:label="fragment_grid"
+        tools:layout="@layout/fragment_grid" />
+</navigation>

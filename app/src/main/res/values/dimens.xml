@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_mini">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_default">16dp</dimen>
+
+    <dimen name="size_wrap_content">0dp</dimen>
+
+    <dimen name="size_card_cover_default">200dp</dimen>
+
+    <dimen name="radius_card_default">4dp</dimen>
+</resources>

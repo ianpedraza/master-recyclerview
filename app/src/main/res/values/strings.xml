@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MasterRecylerView</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="linear_option">Linear RecyclerView</string>
+    <string name="grid_option">Grid RecyclerView</string>
+    <string name="staggered_grid_option">StaggeredGrid RecyclerView</string>
+    <string name="image_of_destiny_travel">Image of destiny travel</string>
+    <string name="button_remove_random_item">Button remove random item</string>
+    <string name="refresh">Refresh</string>
+</resources>
