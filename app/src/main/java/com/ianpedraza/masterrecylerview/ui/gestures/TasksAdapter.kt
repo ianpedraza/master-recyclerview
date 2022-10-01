@@ -23,7 +23,9 @@ class TasksAdapter(
         position: Int
     ) = holder.bind(getItem(position), clickListener)
 
-    class ViewHolder(private val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(
+        private val binding: ItemTaskBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)

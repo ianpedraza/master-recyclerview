@@ -56,7 +56,7 @@ class TravelsAdapter(private val onAction: (Action) -> Unit) :
         }
     }
 
-    class CoverViewHolder(
+    class CoverViewHolder private constructor(
         private val binding: ItemTravelsCoverBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         companion object {
@@ -78,7 +78,7 @@ class TravelsAdapter(private val onAction: (Action) -> Unit) :
         }
     }
 
-    class DescriptionViewHolder(
+    class DescriptionViewHolder private constructor(
         private val binding: ItemTravelsDescriptionBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         companion object {
@@ -99,7 +99,7 @@ class TravelsAdapter(private val onAction: (Action) -> Unit) :
         }
     }
 
-    class AdViewHolder(
+    class AdViewHolder private constructor(
         private val binding: ItemAdBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         companion object {

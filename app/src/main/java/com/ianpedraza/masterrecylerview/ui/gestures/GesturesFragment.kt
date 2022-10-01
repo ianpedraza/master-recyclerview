@@ -85,8 +85,6 @@ class GesturesFragment : Fragment(), MenuProvider {
         setupUI()
         subscribeObservers()
 
-        viewModel.fetchData()
-
         return binding.root
     }
 
