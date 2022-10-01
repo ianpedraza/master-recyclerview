@@ -7,13 +7,12 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.ianpedraza.masterrecylerview.R
 import com.ianpedraza.masterrecylerview.databinding.FragmentLinearBinding
 
@@ -24,7 +23,7 @@ class LinearFragment : Fragment(), MenuProvider {
 
     private val viewModel: TravelsViewModel by viewModels()
 
-    private val adapter = TravelsAdapter()
+    private val adapter = TravelsAdapter() { action -> onClickListener(action) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,25 +38,13 @@ class LinearFragment : Fragment(), MenuProvider {
 
     private fun setupUI() {
         setupMenu()
-        setupRecyclerView()
-
+        binding.recyclerViewLinear.adapter = adapter
         binding.floatingActionButtonRemove.setOnClickListener { viewModel.removeRandom() }
     }
 
     private fun setupMenu() {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
-    }
-
-    private fun setupRecyclerView() {
-        val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        val decoration = DividerItemDecoration(requireContext(), manager.orientation)
-
-        binding.recyclerViewLinear.apply {
-            adapter = this@LinearFragment.adapter
-            layoutManager = manager
-            addItemDecoration(decoration)
-        }
     }
 
     private fun subscribeObservers() {
@@ -69,6 +56,15 @@ class LinearFragment : Fragment(), MenuProvider {
             binding.floatingActionButtonRemove.isEnabled = it
         }
     }
+
+    private fun onClickListener(action: Action) = when (action) {
+        is Action.AdClicked -> showToast("Ad clicked")
+        is Action.CoverClicked -> showToast("Cover clicked")
+        is Action.DescriptionClicked -> showToast("Description clicked")
+    }
+
+    private fun showToast(message: String) =
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) =
         menuInflater.inflate(R.menu.menu, menu)

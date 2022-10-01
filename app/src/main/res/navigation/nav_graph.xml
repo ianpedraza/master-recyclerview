@@ -19,6 +19,12 @@
         <action
             android:id="@+id/action_homeFragment_to_linearFragment"
             app:destination="@id/linearFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_gesturesFragment"
+            app:destination="@id/gesturesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_selectionsFragment"
+            app:destination="@id/selectionsFragment" />
     </fragment>
     <fragment
         android:id="@+id/linearFragment"
@@ -35,4 +41,14 @@
         android:name="com.ianpedraza.masterrecylerview.ui.grid.GridFragment"
         android:label="fragment_grid"
         tools:layout="@layout/fragment_grid" />
+    <fragment
+        android:id="@+id/gesturesFragment"
+        android:name="com.ianpedraza.masterrecylerview.ui.gestures.GesturesFragment"
+        android:label="fragment_gestures"
+        tools:layout="@layout/fragment_gestures" />
+    <fragment
+        android:id="@+id/selectionsFragment"
+        android:name="com.ianpedraza.masterrecylerview.ui.selections.SelectionsFragment"
+        android:label="fragment_selections"
+        tools:layout="@layout/fragment_selections" />
 </navigation>

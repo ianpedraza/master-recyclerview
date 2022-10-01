@@ -35,8 +35,8 @@ class TravelsViewModel : ViewModel() {
     }
 
     fun removeRandom() {
-        _data.value = _data.value?.toMutableList().apply {
-            _data.value?.random()?.let { this?.remove(it) }
-        }?.toList()
+        _data.value = _data.value?.toMutableList()?.apply {
+            removeAt(0)
+        }
     }
 }

@@ -36,6 +36,14 @@ class HomeFragment : Fragment() {
             textViewStaggeredGridOption.setOnClickListener {
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToStaggeredGridFragment())
             }
+
+            textViewGesturesOption.setOnClickListener {
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToGesturesFragment())
+            }
+
+            textViewSelectionOption.setOnClickListener {
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSelectionsFragment())
+            }
         }
     }
 }

@@ -11,6 +11,9 @@
         android:id="@+id/textViewLinearOption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:padding="@dimen/margin_default"
         android:text="@string/linear_option"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -21,6 +24,9 @@
         android:id="@+id/textViewGridOption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:padding="@dimen/margin_default"
         android:text="@string/grid_option"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -31,8 +37,38 @@
         android:id="@+id/textViewStaggeredGridOption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:padding="@dimen/margin_default"
         android:text="@string/staggered_grid_option"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/black"
+        app:drawableEndCompat="@drawable/ic_arrow_forward" />
+
+
+    <TextView
+        android:id="@+id/textViewGesturesOption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:padding="@dimen/margin_default"
+        android:text="@string/gestures_option"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/black"
+        app:drawableEndCompat="@drawable/ic_arrow_forward" />
+
+    <TextView
+        android:id="@+id/textViewSelectionOption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:padding="@dimen/margin_default"
+        android:text="@string/selections"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"
         app:drawableEndCompat="@drawable/ic_arrow_forward" />

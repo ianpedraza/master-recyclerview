@@ -8,4 +8,6 @@
     <string name="image_of_destiny_travel">Image of destiny travel</string>
     <string name="button_remove_random_item">Button remove random item</string>
     <string name="refresh">Refresh</string>
+    <string name="gestures_option">Drag and Swipe Gestures</string>
+    <string name="selections">Selections</string>
 </resources>
