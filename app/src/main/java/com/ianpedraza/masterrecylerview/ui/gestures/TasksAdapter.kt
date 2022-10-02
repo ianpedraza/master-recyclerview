@@ -37,19 +37,21 @@ class TasksAdapter(
         fun bind(
             item: Task,
             clickListener: TasksClickListener
-        ) = with(binding) {
-            textViewTaskTitle.text = item.title
+        ) {
+            with(binding) {
+                textViewTaskTitle.text = item.title
 
-            checkboxTask.setOnCheckedChangeListener { _, isChecked ->
-                textViewTaskTitle.strikeThru(isChecked)
+                checkboxTask.setOnCheckedChangeListener { _, isChecked ->
+                    textViewTaskTitle.strikeThru(isChecked)
+                }
+
+                root.setOnClickListener {
+                    checkboxTask.toggle()
+                    clickListener.onClick(item)
+                }
+
+                checkboxTask.isChecked = item.done
             }
-
-            root.setOnClickListener {
-                checkboxTask.toggle()
-                clickListener.onClick(item)
-            }
-
-            checkboxTask.isChecked = item.done
         }
     }
 }

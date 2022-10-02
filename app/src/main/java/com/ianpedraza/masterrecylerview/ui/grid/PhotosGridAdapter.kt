@@ -41,7 +41,7 @@ class PhotosGridAdapter : ListAdapter<Photo, PhotosGridAdapter.ViewHolder>(Photo
     }
 }
 
-private object PhotosDiffCallback : DiffUtil.ItemCallback<Photo>() {
+object PhotosDiffCallback : DiffUtil.ItemCallback<Photo>() {
     override fun areItemsTheSame(
         oldItem: Photo,
         newItem: Photo

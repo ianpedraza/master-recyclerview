@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback
 import androidx.recyclerview.widget.ItemTouchHelper.UP
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class RecyclerViewDragDataHelper :
+abstract class RecyclerViewDragDataHelper() :
     SimpleCallback(UP or DOWN, 0),
     RecyclerViewDragHelper {
 

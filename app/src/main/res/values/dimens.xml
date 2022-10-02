@@ -9,4 +9,6 @@
     <dimen name="size_card_cover_default">200dp</dimen>
 
     <dimen name="radius_card_default">4dp</dimen>
+    <dimen name="radius_card_medium">8dp</dimen>
+    <dimen name="radius_card_large">16dp</dimen>
 </resources>

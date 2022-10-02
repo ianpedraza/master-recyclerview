@@ -70,11 +70,13 @@ class TravelsAdapter(private val onAction: (Action) -> Unit) :
         fun bind(
             item: TravelsCover,
             onAction: (Action) -> Unit
-        ) = with(binding) {
-            textViewItemTravelsCoverTitle.text = item.title
-            textViewItemTravelsCoverHeadline.text = item.headline
-            imageViewItemTravelsCover.loadImageByUrl(item.image)
-            root.setOnClickListener { onAction(CoverClicked(item)) }
+        ) {
+            with(binding) {
+                textViewItemTravelsCoverTitle.text = item.title
+                textViewItemTravelsCoverHeadline.text = item.headline
+                imageViewItemTravelsCover.loadImageByUrl(item.image)
+                root.setOnClickListener { onAction(CoverClicked(item)) }
+            }
         }
     }
 
@@ -92,10 +94,12 @@ class TravelsAdapter(private val onAction: (Action) -> Unit) :
         fun bind(
             item: TravelsDescription,
             onAction: (Action) -> Unit
-        ) = with(binding) {
-            textViewItemTravelsDescriptionTitle.text = item.title
-            textViewItemTravelsDescriptionBody.text = item.body
-            root.setOnClickListener { onAction(DescriptionClicked(item)) }
+        ) {
+            with(binding) {
+                textViewItemTravelsDescriptionTitle.text = item.title
+                textViewItemTravelsDescriptionBody.text = item.body
+                root.setOnClickListener { onAction(DescriptionClicked(item)) }
+            }
         }
     }
 
@@ -113,10 +117,12 @@ class TravelsAdapter(private val onAction: (Action) -> Unit) :
         fun bind(
             item: Ad,
             onAction: (Action) -> Unit
-        ) = with(binding) {
-            textViewItemAdTitle.text = item.title
-            textViewItemAdBody.text = item.body
-            root.setOnClickListener { onAction(AdClicked(item)) }
+        ) {
+            with(binding) {
+                textViewItemAdTitle.text = item.title
+                textViewItemAdBody.text = item.body
+                root.setOnClickListener { onAction(AdClicked(item)) }
+            }
         }
     }
 }

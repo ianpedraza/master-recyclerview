@@ -17,6 +17,7 @@ class ViewExtensions {
         ) = Glide.with(this)
             .load(urlImage)
             .centerCrop()
+            .fitCenter()
             .placeholder(R.drawable.ic_image_placeholder)
             .error(R.drawable.ic_image_broken)
             .into(this)

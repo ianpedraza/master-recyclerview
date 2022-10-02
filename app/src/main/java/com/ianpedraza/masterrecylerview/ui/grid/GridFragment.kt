@@ -69,6 +69,10 @@ class GridFragment : Fragment(), MenuProvider {
         viewModel.data.observe(viewLifecycleOwner) { photos ->
             adapter.submitList(photos)
         }
+
+        viewModel.showRemoveButton.observe(viewLifecycleOwner) { showRemoveButton ->
+            binding.floatingActionButtonGridPhotos.isEnabled = showRemoveButton
+        }
     }
 
     private fun setupMenu() {

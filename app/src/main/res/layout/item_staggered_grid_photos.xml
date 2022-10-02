@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/radius_card_medium"
+    app:cardUseCompatPadding="true">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewStaggeredGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/photo"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+</androidx.cardview.widget.CardView>
