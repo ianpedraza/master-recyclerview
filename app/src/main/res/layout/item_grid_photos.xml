@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageViewPhotoGrid"
-        android:layout_width="@dimen/size_wrap_content"
-        android:layout_height="@dimen/size_wrap_content"
+        android:layout_width="@dimen/size_constrained"
+        android:layout_height="@dimen/size_constrained"
         android:contentDescription="@string/photo"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"

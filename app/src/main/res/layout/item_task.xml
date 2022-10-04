@@ -18,8 +18,8 @@
 
     <TextView
         android:id="@+id/textViewTaskTitle"
-        android:layout_width="@dimen/size_wrap_content"
-        android:layout_height="@dimen/size_wrap_content"
+        android:layout_width="@dimen/size_constrained"
+        android:layout_height="@dimen/size_constrained"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:lines="1"

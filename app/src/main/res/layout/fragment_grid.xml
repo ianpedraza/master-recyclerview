@@ -21,8 +21,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewGridPhotos"
-        android:layout_width="@dimen/size_wrap_content"
-        android:layout_height="@dimen/size_wrap_content"
+        android:layout_width="@dimen/size_constrained"
+        android:layout_height="@dimen/size_constrained"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

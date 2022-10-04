@@ -3,6 +3,7 @@ package com.ianpedraza.masterrecylerview.utils
 import android.graphics.Paint
 import android.view.View
 import android.view.View.GONE
+import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.ImageView
 import android.widget.TextView
@@ -22,9 +23,28 @@ class ViewExtensions {
             .error(R.drawable.ic_image_broken)
             .into(this)
 
-        fun View.goneIfEmpty(value: String) {
-            visibility = if (value.isEmpty()) {
+        fun ImageView.loadCircleImageByUrl(
+            urlImage: String
+        ) = Glide.with(this)
+            .load(urlImage)
+            .centerCrop()
+            .fitCenter()
+            .circleCrop()
+            .placeholder(R.drawable.ic_image_placeholder)
+            .error(R.drawable.ic_image_broken)
+            .into(this)
+
+        fun View.goneIf(value: Boolean) {
+            visibility = if (value) {
                 GONE
+            } else {
+                VISIBLE
+            }
+        }
+
+        fun View.invisibleIf(value: Boolean) {
+            visibility = if (value) {
+                INVISIBLE
             } else {
                 VISIBLE
             }

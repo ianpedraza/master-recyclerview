@@ -10,4 +10,8 @@
     <string name="gestures_option">Drag and Swipe Gestures</string>
     <string name="selections">Selections</string>
     <string name="photo">Photo</string>
+    <string name="profile_picture">Profile picture</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_selected">%d selected</string>
+    <string name="action_select_all">Select all</string>
 </resources>

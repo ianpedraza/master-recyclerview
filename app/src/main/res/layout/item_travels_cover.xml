@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewItemTravelsCover"
-        android:layout_width="@dimen/size_wrap_content"
+        android:layout_width="@dimen/size_constrained"
         android:layout_height="@dimen/size_card_cover_default"
         android:layout_marginStart="@dimen/margin_default"
         android:layout_marginTop="@dimen/margin_small"
@@ -28,8 +28,8 @@
 
             <ImageView
                 android:id="@+id/imageViewItemTravelsCover"
-                android:layout_width="@dimen/size_wrap_content"
-                android:layout_height="@dimen/size_wrap_content"
+                android:layout_width="@dimen/size_constrained"
+                android:layout_height="@dimen/size_constrained"
                 android:alpha="0.6"
                 android:contentDescription="@string/image_of_destiny_travel"
                 android:scaleType="centerCrop"
