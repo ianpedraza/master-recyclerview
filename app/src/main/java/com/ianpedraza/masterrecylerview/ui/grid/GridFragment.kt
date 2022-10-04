@@ -15,6 +15,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ianpedraza.masterrecylerview.R
 import com.ianpedraza.masterrecylerview.databinding.FragmentGridBinding
+import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.refresh
 
 class GridFragment : Fragment(), MenuProvider {
 
@@ -45,6 +46,8 @@ class GridFragment : Fragment(), MenuProvider {
         binding.floatingActionButtonGridPhotos.setOnClickListener {
             viewModel.removeFirst()
         }
+
+        binding.root.setOnRefreshListener { refresh() }
     }
 
     private fun setupRecyclerView() {
@@ -80,13 +83,17 @@ class GridFragment : Fragment(), MenuProvider {
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
+    private fun refresh() {
+        binding.root.refresh { viewModel.fetchData() }
+    }
+
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu, menu)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean = when (menuItem.itemId) {
         R.id.menuItemRefresh -> {
-            viewModel.fetchData()
+            refresh()
             true
         }
         else -> false

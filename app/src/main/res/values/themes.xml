@@ -19,6 +19,8 @@
         <item name="actionModeCloseButtonStyle">
             @style/Theme.MasterRecylerView.ActionMode.CloseButtonStyle
         </item>
+        <item name="itemBackground">@color/white</item>
+        <item name="actionBarStyle">@style/Theme.MasterRecylerView.ActionBar</item>
     </style>
 
     <style name="Theme.MasterRecylerView.ActionMode" parent="Widget.AppCompat.ActionMode">
@@ -28,4 +30,9 @@
     <style name="Theme.MasterRecylerView.ActionMode.CloseButtonStyle" parent="Widget.AppCompat.ActionMode">
         <item name="tint">@color/white</item>
     </style>
+
+    <style name="Theme.MasterRecylerView.ActionBar" parent="Widget.AppCompat.ActionBar">
+        <item name="background">?colorPrimary</item>
+    </style>
+
 </resources>

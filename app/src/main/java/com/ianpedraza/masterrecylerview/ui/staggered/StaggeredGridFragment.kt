@@ -15,6 +15,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.ianpedraza.masterrecylerview.R
 import com.ianpedraza.masterrecylerview.databinding.FragmentStaggeredGridBinding
+import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.refresh
 
 class StaggeredGridFragment : Fragment(), MenuProvider {
 
@@ -45,6 +46,8 @@ class StaggeredGridFragment : Fragment(), MenuProvider {
         binding.floatingActionButtonStaggeredGrid.setOnClickListener {
             viewModel.removeFirst()
         }
+
+        binding.root.setOnRefreshListener { refresh() }
     }
 
     private fun setupMenu() {
@@ -74,12 +77,16 @@ class StaggeredGridFragment : Fragment(), MenuProvider {
         }
     }
 
+    private fun refresh() {
+        binding.root.refresh { viewModel.fetchData() }
+    }
+
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) =
         menuInflater.inflate(R.menu.menu, menu)
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean = when (menuItem.itemId) {
         R.id.menuItemRefresh -> {
-            viewModel.fetchData()
+            refresh()
             true
         }
         else -> false

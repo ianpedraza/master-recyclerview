@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import com.ianpedraza.masterrecylerview.R
 import com.ianpedraza.masterrecylerview.databinding.FragmentLinearBinding
+import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.refresh
 
 class LinearFragment : Fragment(), MenuProvider {
 
@@ -40,6 +41,7 @@ class LinearFragment : Fragment(), MenuProvider {
         setupMenu()
         binding.recyclerViewLinear.adapter = adapter
         binding.floatingActionButtonRemove.setOnClickListener { viewModel.removeRandom() }
+        binding.root.setOnRefreshListener { refresh() }
     }
 
     private fun setupMenu() {
@@ -57,6 +59,10 @@ class LinearFragment : Fragment(), MenuProvider {
         }
     }
 
+    private fun refresh() {
+        binding.root.refresh { viewModel.fetchData() }
+    }
+
     private fun onClickListener(action: Action) = when (action) {
         is Action.AdClicked -> showToast("Ad clicked")
         is Action.CoverClicked -> showToast("Cover clicked")
@@ -71,7 +77,7 @@ class LinearFragment : Fragment(), MenuProvider {
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean = when (menuItem.itemId) {
         R.id.menuItemRefresh -> {
-            viewModel.fetchData()
+            refresh()
             true
         }
         else -> false

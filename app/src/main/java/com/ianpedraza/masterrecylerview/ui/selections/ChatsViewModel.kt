@@ -18,7 +18,7 @@ class ChatsViewModel : ViewModel() {
         fetchData()
     }
 
-    private fun fetchData() {
+    fun fetchData() {
         _data.value = ChatsDummyData.chats
     }
 

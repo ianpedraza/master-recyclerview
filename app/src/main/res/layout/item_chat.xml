@@ -8,7 +8,7 @@
     android:background="@drawable/bg_recyclerview_selection"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?attr/selectableItemBackground">
+    android:foreground="?selectableItemBackground">
 
     <ImageView
         android:id="@+id/imageViewChat"
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/black"
+        android:textColor="@drawable/bg_recyclerview_selection_text"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textViewChatMessage"
         app:layout_constraintStart_toStartOf="@+id/textViewChatMessage"
@@ -54,6 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_default"
+        android:textColor="@drawable/bg_recyclerview_selection_text"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewChat"
         app:layout_constraintStart_toEndOf="@+id/imageViewChat"
         tools:text="This is a message Test" />

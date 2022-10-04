@@ -26,6 +26,7 @@ import com.ianpedraza.masterrecylerview.databinding.FragmentGesturesBinding
 import com.ianpedraza.masterrecylerview.domain.helpers.gestures.RecyclerViewDragDataHelper
 import com.ianpedraza.masterrecylerview.domain.helpers.gestures.RecyclerViewSwipeDataHelper
 import com.ianpedraza.masterrecylerview.domain.helpers.gestures.RecyclerViewSwipeDataHelper.SwipeHolder
+import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.refresh
 
 class GesturesFragment : Fragment(), MenuProvider {
 
@@ -34,7 +35,9 @@ class GesturesFragment : Fragment(), MenuProvider {
 
     private val viewModel: TasksViewModel by viewModels()
 
-    private val adapter by lazy { TasksAdapter(tasksClickListener) }
+    private val adapter by lazy {
+        TasksAdapter(tasksClickListener)
+    }
 
     private val tasksClickListener = TasksClickListener { taskId ->
         Toast.makeText(requireContext(), taskId, Toast.LENGTH_SHORT).show()
@@ -91,6 +94,8 @@ class GesturesFragment : Fragment(), MenuProvider {
     private fun setupUI() {
         setupMenu()
         setupRecyclerView()
+
+        binding.root.setOnRefreshListener { refresh() }
     }
 
     private fun setupMenu() {
@@ -99,7 +104,11 @@ class GesturesFragment : Fragment(), MenuProvider {
     }
 
     private fun setupRecyclerView() {
-        val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val manager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.VERTICAL,
+            false
+        )
         val decoration = DividerItemDecoration(requireContext(), manager.orientation)
 
         binding.recyclerViewGestures.apply {
@@ -117,6 +126,10 @@ class GesturesFragment : Fragment(), MenuProvider {
         }
     }
 
+    private fun refresh() {
+        binding.root.refresh { viewModel.fetchData() }
+    }
+
     private fun removeTask(index: Int) {
         viewModel.removeItemAt(index)?.let { task ->
             Snackbar.make(binding.root, "1 deleted", Snackbar.LENGTH_LONG)
@@ -130,7 +143,7 @@ class GesturesFragment : Fragment(), MenuProvider {
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean = when (menuItem.itemId) {
         R.id.menuItemRefresh -> {
-            viewModel.fetchData()
+            refresh()
             true
         }
         else -> false

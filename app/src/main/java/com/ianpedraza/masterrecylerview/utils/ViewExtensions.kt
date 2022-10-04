@@ -7,6 +7,7 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.ianpedraza.masterrecylerview.R
 
@@ -56,6 +57,12 @@ class ViewExtensions {
             } else {
                 paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
             }
+        }
+
+        fun SwipeRefreshLayout.refresh(onRefresh: () -> Unit) {
+            isRefreshing = true
+            onRefresh()
+            isRefreshing = false
         }
     }
 }

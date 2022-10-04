@@ -14,4 +14,7 @@
     <string name="action_delete">Delete</string>
     <string name="action_selected">%d selected</string>
     <string name="action_select_all">Select all</string>
+    <string name="multiple_listeners">Multiple Listeners</string>
+    <string name="pagination">Pagination</string>
+    <string name="search">Search</string>
 </resources>

@@ -3,12 +3,16 @@ package com.ianpedraza.masterrecylerview.ui.selections
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.view.ActionMode
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
@@ -18,7 +22,7 @@ import com.ianpedraza.masterrecylerview.R
 import com.ianpedraza.masterrecylerview.databinding.FragmentSelectionsBinding
 import com.ianpedraza.masterrecylerview.ui.MainActivity
 
-class SelectionsFragment : Fragment(), ActionMode.Callback {
+class SelectionsFragment : Fragment(), ActionMode.Callback, MenuProvider {
 
     private var _binding: FragmentSelectionsBinding? = null
     private val binding get() = _binding!!
@@ -48,6 +52,12 @@ class SelectionsFragment : Fragment(), ActionMode.Callback {
 
     private fun setupUI() {
         setupRecyclerView()
+        setupMenu()
+    }
+
+    private fun setupMenu() {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun setupRecyclerView() {
@@ -159,5 +169,16 @@ class SelectionsFragment : Fragment(), ActionMode.Callback {
         } else {
             actionMode?.finish()
         }
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) =
+        menuInflater.inflate(R.menu.menu, menu)
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean = when (menuItem.itemId) {
+        R.id.menuItemRefresh -> {
+            viewModel.fetchData()
+            true
+        }
+        else -> false
     }
 }
