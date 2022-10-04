@@ -61,8 +61,8 @@ class ChatsAdapter : ListAdapter<ChatPreview, ChatsAdapter.ViewHolder>(ChatsDiff
 
         fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
             object : ItemDetailsLookup.ItemDetails<Long>() {
-                override fun getPosition(): Int = adapterPosition
-                override fun getSelectionKey(): Long = getItem(adapterPosition).id
+                override fun getPosition(): Int = bindingAdapterPosition
+                override fun getSelectionKey(): Long = getItem(bindingAdapterPosition).id
             }
     }
 }

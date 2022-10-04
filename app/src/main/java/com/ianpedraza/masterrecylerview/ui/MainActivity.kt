@@ -8,7 +8,9 @@ import androidx.navigation.ui.NavigationUI
 import com.ianpedraza.masterrecylerview.R
 import com.ianpedraza.masterrecylerview.databinding.ActivityMainBinding
 import com.ianpedraza.masterrecylerview.utils.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding by viewBinding(ActivityMainBinding::inflate)

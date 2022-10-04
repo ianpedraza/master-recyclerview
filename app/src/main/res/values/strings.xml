@@ -17,4 +17,5 @@
     <string name="multiple_listeners">Multiple Listeners</string>
     <string name="pagination">Pagination</string>
     <string name="search">Search</string>
+    <string name="cd_card_item_image">Image of a pokemon</string>
 </resources>

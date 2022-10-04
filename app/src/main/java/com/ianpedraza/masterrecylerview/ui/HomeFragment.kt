@@ -44,6 +44,10 @@ class HomeFragment : Fragment() {
             textViewSelectionOption.setOnClickListener {
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSelectionsFragment())
             }
+
+            textViewPaginationOption.setOnClickListener {
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPagingFragment())
+            }
         }
     }
 }

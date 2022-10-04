@@ -62,10 +62,10 @@ class GesturesFragment : Fragment(), MenuProvider {
     private val swipeGestures by lazy {
         object : RecyclerViewSwipeDataHelper(startHolder, endHolder) {
             override fun onSwipeStart(viewHolder: RecyclerView.ViewHolder) =
-                removeTask(viewHolder.adapterPosition)
+                removeTask(viewHolder.bindingAdapterPosition)
 
             override fun onSwipeEnd(viewHolder: RecyclerView.ViewHolder) =
-                viewModel.moveToEnd(viewHolder.adapterPosition)
+                viewModel.moveToEnd(viewHolder.bindingAdapterPosition)
         }
     }
 
@@ -74,7 +74,10 @@ class GesturesFragment : Fragment(), MenuProvider {
             override fun onDrag(
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
-            ) = viewModel.swapItems(viewHolder.adapterPosition, target.adapterPosition)
+            ) = viewModel.swapItems(
+                viewHolder.bindingAdapterPosition,
+                target.bindingAdapterPosition
+            )
         }
     }
 

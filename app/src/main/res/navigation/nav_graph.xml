@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_homeFragment_to_selectionsFragment"
             app:destination="@id/selectionsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_pagingFragment"
+            app:destination="@id/pagingFragment" />
     </fragment>
     <fragment
         android:id="@+id/linearFragment"
@@ -51,4 +54,9 @@
         android:name="com.ianpedraza.masterrecylerview.ui.selections.SelectionsFragment"
         android:label="fragment_selections"
         tools:layout="@layout/fragment_selections" />
+    <fragment
+        android:id="@+id/pagingFragment"
+        android:name="com.ianpedraza.masterrecylerview.ui.paging.PagingFragment"
+        android:label="fragment_paging"
+        tools:layout="@layout/fragment_paging" />
 </navigation>
