@@ -6,16 +6,18 @@ import androidx.paging.PagingState
 import com.ianpedraza.masterrecylerview.data.pokemon.api.PAGE_KEY
 import com.ianpedraza.masterrecylerview.data.pokemon.api.PokemonApi
 import com.ianpedraza.masterrecylerview.data.pokemon.models.local.Pokemon
+import com.ianpedraza.masterrecylerview.domain.mappers.pokemon.PokemonMappers.Companion.search
 import com.ianpedraza.masterrecylerview.domain.mappers.pokemon.PokemonMappers.Companion.toModel
 
 class PokemonPagingDataSource(
-    private val service: PokemonApi
+    private val service: PokemonApi,
+    private val query: String? = null
 ) : PagingSource<Int, Pokemon>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Pokemon> {
         return try {
             val pageNumber = params.key ?: 0
             val response = service.getAllPokemon(offset = pageNumber)
-            val data = response.results.toModel()
+            val data = response.results.toModel().search(query)
 
             var previousPageNumber: Int? = null
 

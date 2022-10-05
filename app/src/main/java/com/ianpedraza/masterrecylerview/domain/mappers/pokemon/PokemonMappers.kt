@@ -25,5 +25,21 @@ class PokemonMappers {
 
             return modelList
         }
+
+        fun List<Pokemon>.search(query: String?): List<Pokemon> {
+            return if (query.isNullOrEmpty()) {
+                this
+            } else {
+                val number = try {
+                    query.toInt()
+                } catch (ignored: Exception) {
+                    0
+                }
+
+                filter { pokemon ->
+                    pokemon.name.contains(query.lowercase()) || pokemon.id == number
+                }
+            }
+        }
     }
 }
