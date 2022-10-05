@@ -10,7 +10,6 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.palette.graphics.Palette
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
@@ -77,10 +76,17 @@ class ViewExtensions {
 
         fun ImageView.loadImageByUrl(
             urlImage: String,
+            centerCrop: Boolean = false,
             onLoad: ((Drawable?) -> Unit)? = null
         ) = Glide.with(this)
             .load(urlImage)
-            .centerCrop()
+            .run {
+                if (centerCrop) {
+                    centerCrop()
+                } else {
+                    centerInside()
+                }
+            }
             .placeholder(R.drawable.ic_image_placeholder)
             .error(R.drawable.ic_image_broken)
             .addListener(object : RequestListener<Drawable> {
@@ -109,8 +115,8 @@ class ViewExtensions {
         fun String.capitalizeFirst() =
             this.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 
-        fun CardView.setCardBackgroundDominantColorFrom(bitmap: Bitmap) =
-            Palette.Builder(bitmap).generate { palette ->
+        fun Bitmap.getDominantColor(callback: (color: Int) -> Unit) =
+            Palette.Builder(this).generate { palette ->
                 val dominantColor = palette?.getDominantColor(Color.BLACK)
 
                 dominantColor?.let {
@@ -122,7 +128,41 @@ class ViewExtensions {
                         dominantColor
                     }
 
-                    this.setCardBackgroundColor(color)
+                    callback(color)
+                }
+            }
+
+        fun Bitmap.getVibrantColor(callback: (color: Int) -> Unit) =
+            Palette.Builder(this).generate { palette ->
+                val dominantColor = palette?.getVibrantColor(Color.WHITE)
+
+                dominantColor?.let {
+                    val isColorDark = ColorsManager.isColorDark(dominantColor)
+
+                    val color = if (isColorDark) {
+                        ColorsManager.lightenColor(dominantColor, 0.25f)
+                    } else {
+                        dominantColor
+                    }
+
+                    callback(color)
+                }
+            }
+
+        fun Bitmap.getLightColor(callback: (color: Int) -> Unit) =
+            Palette.Builder(this).generate { palette ->
+                val dominantColor = palette?.getLightVibrantColor(Color.WHITE)
+
+                dominantColor?.let {
+                    val isColorDark = ColorsManager.isColorDark(dominantColor)
+
+                    val color = if (isColorDark) {
+                        ColorsManager.lightenColor(dominantColor, 0.25f)
+                    } else {
+                        dominantColor
+                    }
+
+                    callback(color)
                 }
             }
     }

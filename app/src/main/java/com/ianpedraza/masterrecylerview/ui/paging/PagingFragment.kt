@@ -38,10 +38,6 @@ class PagingFragment : Fragment() {
 
     private fun subscribeObservers() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            /* viewModel.pokemon.collectLatest { pagingData ->
-                adapter.submitData(pagingData)
-            } */
-
             viewModel.pokemonList.observe(viewLifecycleOwner) { pagingData ->
                 viewLifecycleOwner.lifecycleScope.launch {
                     adapter.submitData(pagingData)

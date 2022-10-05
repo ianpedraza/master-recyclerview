@@ -1,4 +1,4 @@
-package com.ianpedraza.masterrecylerview.ui.paging
+package com.ianpedraza.masterrecylerview.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,13 +7,14 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ianpedraza.masterrecylerview.data.pokemon.models.local.Pokemon
-import com.ianpedraza.masterrecylerview.databinding.ItemPokemonBinding
+import com.ianpedraza.masterrecylerview.databinding.ItemPokemonSearchBinding
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.capitalizeFirst
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.getDominantColor
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.loadImageByUrl
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.toPokedexNumber
 
-class PokemonAdapter : PagingDataAdapter<Pokemon, PokemonAdapter.ViewHolder>(PokemonDiffCallback) {
+class PokemonSearchAdapter :
+    PagingDataAdapter<Pokemon, PokemonSearchAdapter.ViewHolder>(PokemonDiffCallback) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -25,25 +26,25 @@ class PokemonAdapter : PagingDataAdapter<Pokemon, PokemonAdapter.ViewHolder>(Pok
     }
 
     class ViewHolder(
-        private val binding: ItemPokemonBinding
+        private val binding: ItemPokemonSearchBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ItemPokemonBinding.inflate(layoutInflater, parent, false)
+                val binding = ItemPokemonSearchBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
 
         fun bind(pokemon: Pokemon): Unit = with(pokemon) {
-            binding.tvNamePokemonItem.text = name.capitalizeFirst()
-            binding.tvNumberPokemonItem.text = id.toPokedexNumber()
+            binding.textViewPokemonSearchName.text = name.capitalizeFirst()
+            binding.textViewPokemonSearchNumber.text = id.toPokedexNumber()
 
             image?.let {
-                binding.ivPokemonItem.loadImageByUrl(image) { drawable ->
+                binding.imageViewPokemonSearch.loadImageByUrl(image, false) { drawable ->
                     drawable?.toBitmap()?.getDominantColor { color ->
-                        binding.cvPokemonItem.setCardBackgroundColor(color)
+                        binding.root.setBackgroundColor(color)
                     }
                 }
             }

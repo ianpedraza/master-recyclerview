@@ -8,7 +8,5 @@ import javax.inject.Inject
 class GetAllPokemonUseCase
 @Inject
 constructor(private val repository: PokemonRepository) {
-    operator fun invoke(): Pager<Int, Pokemon> {
-        return repository.getAllPokemon()
-    }
+    operator fun invoke(): Pager<Int, Pokemon> = repository.getAllPokemon()
 }

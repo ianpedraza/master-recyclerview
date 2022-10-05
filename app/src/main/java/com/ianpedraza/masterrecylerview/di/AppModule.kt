@@ -4,6 +4,9 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.ianpedraza.masterrecylerview.BuildConfig
 import com.ianpedraza.masterrecylerview.data.pokemon.api.PokemonApi
+import com.ianpedraza.masterrecylerview.domain.pokemon.PokemonRepository
+import com.ianpedraza.masterrecylerview.usecases.GetAllPokemonUseCase
+import com.ianpedraza.masterrecylerview.usecases.SearchPokemonUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,7 +48,7 @@ object AppModule {
         .client(client)
         .build()
 
-    /* Get Pokemon */
+    /* Pokemon */
 
     @Singleton
     @Provides
@@ -53,16 +56,21 @@ object AppModule {
         retrofit: Retrofit
     ): PokemonApi = retrofit.create(PokemonApi::class.java)
 
-    /*
-    @Singleton
-    @Provides
-    fun providePokemonMapper() = PokemonMapper()
-
     @Singleton
     @Provides
     fun providePokemonRepository(
-        pokemonService: PokemonService,
-        mapper: PokemonMapper
-    ) = PokemonRepository(pokemonService, mapper)
-    */
+        service: PokemonApi
+    ) = PokemonRepository(service)
+
+    @Singleton
+    @Provides
+    fun provideGetAllPokemonUseCase(
+        repository: PokemonRepository
+    ) = GetAllPokemonUseCase(repository)
+
+    @Singleton
+    @Provides
+    fun provideSearchPokemonUseCase(
+        repository: PokemonRepository
+    ) = SearchPokemonUseCase(repository)
 }

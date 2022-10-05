@@ -8,7 +8,5 @@ import javax.inject.Inject
 class SearchPokemonUseCase
 @Inject
 constructor(private val repository: PokemonRepository) {
-    operator fun invoke(query: String?): Pager<Int, Pokemon> {
-        return repository.searchPokemon(query)
-    }
+    operator fun invoke(query: String?): Pager<Int, Pokemon> = repository.searchPokemon(query)
 }
