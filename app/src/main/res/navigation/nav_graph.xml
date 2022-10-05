@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_multiListenersFragment"
+            app:destination="@id/multiListenersFragment" />
     </fragment>
     <fragment
         android:id="@+id/linearFragment"
@@ -67,4 +70,9 @@
         android:name="com.ianpedraza.masterrecylerview.ui.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/multiListenersFragment"
+        android:name="com.ianpedraza.masterrecylerview.ui.multilisteners.MultiListenersFragment"
+        android:label="fragment_multi_listeners"
+        tools:layout="@layout/fragment_multi_listeners" />
 </navigation>

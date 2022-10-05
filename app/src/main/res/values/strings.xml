@@ -18,4 +18,8 @@
     <string name="pagination">Pagination</string>
     <string name="search">Search</string>
     <string name="cd_card_item_image">Image of a pokemon</string>
+    <string name="fav_button">Favorite button</string>
+    <string name="btn_call">Call button</string>
+    <string name="btn_message">Message button</string>
+    <string name="btn_video_call">Video call button</string>
 </resources>

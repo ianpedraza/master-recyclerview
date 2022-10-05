@@ -7,6 +7,7 @@
     <dimen name="size_constrained">0dp</dimen>
     <dimen name="size_card_cover_default">200dp</dimen>
     <dimen name="size_chat_photo">48dp</dimen>
+    <dimen name="size_icon_button">48dp</dimen>
     <dimen name="size_chat_selected_icon">24dp</dimen>
 
     <dimen name="radius_card_default">4dp</dimen>

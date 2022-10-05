@@ -17,6 +17,7 @@
         android:padding="@dimen/margin_default"
         android:text="@string/linear_option"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="?android:textColorPrimary"
         app:drawableEndCompat="@drawable/ic_arrow_forward"
         app:drawableTint="?android:textColorPrimary" />
 
@@ -30,6 +31,7 @@
         android:padding="@dimen/margin_default"
         android:text="@string/grid_option"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="?android:textColorPrimary"
         app:drawableEndCompat="@drawable/ic_arrow_forward"
         app:drawableTint="?android:textColorPrimary" />
 
@@ -43,6 +45,7 @@
         android:padding="@dimen/margin_default"
         android:text="@string/staggered_grid_option"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="?android:textColorPrimary"
         app:drawableEndCompat="@drawable/ic_arrow_forward"
         app:drawableTint="?android:textColorPrimary" />
 
@@ -56,6 +59,7 @@
         android:padding="@dimen/margin_default"
         android:text="@string/multiple_listeners"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="?android:textColorPrimary"
         app:drawableEndCompat="@drawable/ic_arrow_forward"
         app:drawableTint="?android:textColorPrimary" />
 
@@ -69,6 +73,7 @@
         android:padding="@dimen/margin_default"
         android:text="@string/gestures_option"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="?android:textColorPrimary"
         app:drawableEndCompat="@drawable/ic_arrow_forward"
         app:drawableTint="?android:textColorPrimary" />
 
@@ -82,6 +87,7 @@
         android:padding="@dimen/margin_default"
         android:text="@string/selections"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="?android:textColorPrimary"
         app:drawableEndCompat="@drawable/ic_arrow_forward"
         app:drawableTint="?android:textColorPrimary" />
 
@@ -95,6 +101,7 @@
         android:padding="@dimen/margin_default"
         android:text="@string/pagination"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="?android:textColorPrimary"
         app:drawableEndCompat="@drawable/ic_arrow_forward"
         app:drawableTint="?android:textColorPrimary" />
 
@@ -108,6 +115,7 @@
         android:padding="@dimen/margin_default"
         android:text="@string/search"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="?android:textColorPrimary"
         app:drawableEndCompat="@drawable/ic_arrow_forward"
         app:drawableTint="?android:textColorPrimary" />
 
