@@ -30,6 +30,11 @@ class PokemonMappers {
             return if (query.isNullOrEmpty()) {
                 this
             } else {
+                query.apply {
+                    lowercase()
+                    trim()
+                }
+
                 val number = try {
                     query.toInt()
                 } catch (ignored: Exception) {
@@ -37,7 +42,7 @@ class PokemonMappers {
                 }
 
                 filter { pokemon ->
-                    pokemon.name.contains(query.lowercase()) || pokemon.id == number
+                    pokemon.name.contains(query) || pokemon.id == number
                 }
             }
         }

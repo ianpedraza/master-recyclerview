@@ -41,6 +41,7 @@ class PokemonAdapter(
         fun bind(item: Pokemon, onAction: (PokemonAction) -> Unit): Unit = with(item) {
             binding.tvNamePokemonItem.text = name.capitalizeFirst()
             binding.tvNumberPokemonItem.text = id.toPokedexNumber()
+            binding.cvPokemonItem.setOnClickListener { onAction(PokemonAction.OnClick(this)) }
 
             image?.let {
                 binding.ivPokemonItem.loadImageByUrl(image) { drawable ->
@@ -48,7 +49,6 @@ class PokemonAdapter(
                         binding.cvPokemonItem.setCardBackgroundColor(color)
                     }
                 }
-                binding.root.setOnClickListener { onAction(PokemonAction.OnClick(this)) }
             }
         }
     }
