@@ -11,9 +11,9 @@ import com.ianpedraza.masterrecylerview.data.travels.TravelsDescription
 import com.ianpedraza.masterrecylerview.databinding.ItemAdBinding
 import com.ianpedraza.masterrecylerview.databinding.ItemTravelsCoverBinding
 import com.ianpedraza.masterrecylerview.databinding.ItemTravelsDescriptionBinding
-import com.ianpedraza.masterrecylerview.ui.linear.Action.AdClicked
-import com.ianpedraza.masterrecylerview.ui.linear.Action.CoverClicked
-import com.ianpedraza.masterrecylerview.ui.linear.Action.DescriptionClicked
+import com.ianpedraza.masterrecylerview.ui.linear.TravelsAction.AdClicked
+import com.ianpedraza.masterrecylerview.ui.linear.TravelsAction.CoverClicked
+import com.ianpedraza.masterrecylerview.ui.linear.TravelsAction.DescriptionClicked
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.loadImageByUrl
 import java.lang.ClassCastException
 
@@ -21,8 +21,9 @@ private const val ITEM_VIEW_TYPE_COVER = 0
 private const val ITEM_VIEW_TYPE_DESCRIPTION = 1
 private const val ITEM_VIEW_TYPE_AD = 2
 
-class TravelsAdapter(private val onAction: (Action) -> Unit) :
-    ListAdapter<TravelsDataItem, RecyclerView.ViewHolder>(TravelsDiffCallback) {
+class TravelsAdapter(
+    private val onAction: (TravelsAction) -> Unit
+) : ListAdapter<TravelsDataItem, RecyclerView.ViewHolder>(TravelsDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
         ITEM_VIEW_TYPE_COVER -> CoverViewHolder.from(parent)
@@ -69,7 +70,7 @@ class TravelsAdapter(private val onAction: (Action) -> Unit) :
 
         fun bind(
             item: TravelsCover,
-            onAction: (Action) -> Unit
+            onAction: (TravelsAction) -> Unit
         ) {
             with(binding) {
                 textViewItemTravelsCoverTitle.text = item.title
@@ -93,7 +94,7 @@ class TravelsAdapter(private val onAction: (Action) -> Unit) :
 
         fun bind(
             item: TravelsDescription,
-            onAction: (Action) -> Unit
+            onAction: (TravelsAction) -> Unit
         ) {
             with(binding) {
                 textViewItemTravelsDescriptionTitle.text = item.title
@@ -116,7 +117,7 @@ class TravelsAdapter(private val onAction: (Action) -> Unit) :
 
         fun bind(
             item: Ad,
-            onAction: (Action) -> Unit
+            onAction: (TravelsAction) -> Unit
         ) {
             with(binding) {
                 textViewItemAdTitle.text = item.title
@@ -135,10 +136,10 @@ private object TravelsDiffCallback : DiffUtil.ItemCallback<TravelsDataItem>() {
         oldItem == newItem
 }
 
-sealed interface Action {
-    data class CoverClicked(val cover: TravelsCover) : Action
-    data class DescriptionClicked(val description: TravelsDescription) : Action
-    data class AdClicked(val ad: Ad) : Action
+sealed interface TravelsAction {
+    data class CoverClicked(val cover: TravelsCover) : TravelsAction
+    data class DescriptionClicked(val description: TravelsDescription) : TravelsAction
+    data class AdClicked(val ad: Ad) : TravelsAction
 }
 
 sealed class TravelsDataItem {

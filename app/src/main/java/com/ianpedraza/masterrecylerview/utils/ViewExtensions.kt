@@ -10,6 +10,8 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.palette.graphics.Palette
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
@@ -72,6 +74,10 @@ class ViewExtensions {
             isRefreshing = true
             onRefresh()
             isRefreshing = false
+        }
+
+        fun Fragment.showToast(message: String) {
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
 
         fun ImageView.loadImageByUrl(

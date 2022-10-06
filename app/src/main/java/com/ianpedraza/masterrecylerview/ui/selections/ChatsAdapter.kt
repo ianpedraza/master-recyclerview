@@ -14,7 +14,9 @@ import com.ianpedraza.masterrecylerview.databinding.ItemChatBinding
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.goneIf
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.loadCircleImageByUrl
 
-class ChatsAdapter : ListAdapter<ChatPreview, ChatsAdapter.ViewHolder>(ChatsDiffCallback) {
+class ChatsAdapter(
+    private val onAction: (ChatsAction) -> Unit
+) : ListAdapter<ChatPreview, ChatsAdapter.ViewHolder>(ChatsDiffCallback) {
 
     var tracker: SelectionTracker<Long>? = null
 
@@ -38,7 +40,7 @@ class ChatsAdapter : ListAdapter<ChatPreview, ChatsAdapter.ViewHolder>(ChatsDiff
     ) {
         tracker?.let { tracker ->
             val item = getItem(position)
-            holder.bind(item, tracker.isSelected(item.id))
+            holder.bind(item, tracker.isSelected(item.id), onAction)
         }
     }
 
@@ -49,9 +51,14 @@ class ChatsAdapter : ListAdapter<ChatPreview, ChatsAdapter.ViewHolder>(ChatsDiff
         private val binding: ItemChatBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ChatPreview, selected: Boolean) {
+        fun bind(
+            item: ChatPreview,
+            selected: Boolean,
+            onAction: (ChatsAction) -> Unit
+        ) {
             with(binding) {
                 root.isActivated = selected
+                root.setOnClickListener { onAction(ChatsAction.OnClick(item)) }
                 imageViewChat.loadCircleImageByUrl(item.image)
                 textViewChatName.text = item.name
                 textViewChatMessage.text = item.message
@@ -100,4 +107,8 @@ class ChatDetailsLookup(
             null
         }
     }
+}
+
+sealed interface ChatsAction {
+    data class OnClick(val chat: ChatPreview) : ChatsAction
 }

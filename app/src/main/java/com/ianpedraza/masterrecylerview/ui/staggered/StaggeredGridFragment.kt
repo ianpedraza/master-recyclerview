@@ -15,7 +15,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.ianpedraza.masterrecylerview.R
 import com.ianpedraza.masterrecylerview.databinding.FragmentStaggeredGridBinding
+import com.ianpedraza.masterrecylerview.ui.grid.PhotosAction
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.refresh
+import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.showToast
 
 class StaggeredGridFragment : Fragment(), MenuProvider {
 
@@ -24,7 +26,7 @@ class StaggeredGridFragment : Fragment(), MenuProvider {
 
     private val viewModel: PhotosStaggeredGridViewModel by viewModels()
 
-    private val adapter = PhotosStaggeredGridAdapter()
+    private lateinit var adapter: PhotosStaggeredGridAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,11 +34,13 @@ class StaggeredGridFragment : Fragment(), MenuProvider {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStaggeredGridBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupUI()
         subscribeObservers()
-
-        return binding.root
     }
 
     private fun setupUI() {
@@ -56,6 +60,8 @@ class StaggeredGridFragment : Fragment(), MenuProvider {
     }
 
     private fun setupRecyclerView() {
+        adapter = PhotosStaggeredGridAdapter() { action -> onAction(action) }
+
         val layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL).apply {
                 gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
@@ -64,6 +70,12 @@ class StaggeredGridFragment : Fragment(), MenuProvider {
         binding.recyclerViewStaggeredGrid.apply {
             this.adapter = this@StaggeredGridFragment.adapter
             this.layoutManager = layoutManager
+        }
+    }
+
+    private fun onAction(action: PhotosAction) {
+        when (action) {
+            is PhotosAction.OnClick -> showToast("Photo clicked")
         }
     }
 

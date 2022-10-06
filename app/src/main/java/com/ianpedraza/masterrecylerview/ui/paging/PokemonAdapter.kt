@@ -13,7 +13,9 @@ import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.getDomina
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.loadImageByUrl
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.toPokedexNumber
 
-class PokemonAdapter : PagingDataAdapter<Pokemon, PokemonAdapter.ViewHolder>(PokemonDiffCallback) {
+class PokemonAdapter(
+    private val onAction: (PokemonAction) -> Unit
+) : PagingDataAdapter<Pokemon, PokemonAdapter.ViewHolder>(PokemonDiffCallback) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -21,7 +23,7 @@ class PokemonAdapter : PagingDataAdapter<Pokemon, PokemonAdapter.ViewHolder>(Pok
     ) = ViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getItem(position)?.let { pokemon -> holder.bind(pokemon) }
+        getItem(position)?.let { pokemon -> holder.bind(pokemon, onAction) }
     }
 
     class ViewHolder(
@@ -36,7 +38,7 @@ class PokemonAdapter : PagingDataAdapter<Pokemon, PokemonAdapter.ViewHolder>(Pok
             }
         }
 
-        fun bind(pokemon: Pokemon): Unit = with(pokemon) {
+        fun bind(item: Pokemon, onAction: (PokemonAction) -> Unit): Unit = with(item) {
             binding.tvNamePokemonItem.text = name.capitalizeFirst()
             binding.tvNumberPokemonItem.text = id.toPokedexNumber()
 
@@ -46,12 +48,13 @@ class PokemonAdapter : PagingDataAdapter<Pokemon, PokemonAdapter.ViewHolder>(Pok
                         binding.cvPokemonItem.setCardBackgroundColor(color)
                     }
                 }
+                binding.root.setOnClickListener { onAction(PokemonAction.OnClick(this)) }
             }
         }
     }
 }
 
-private object PokemonDiffCallback : DiffUtil.ItemCallback<Pokemon>() {
+object PokemonDiffCallback : DiffUtil.ItemCallback<Pokemon>() {
     override fun areItemsTheSame(
         oldItem: Pokemon,
         newItem: Pokemon
@@ -61,4 +64,8 @@ private object PokemonDiffCallback : DiffUtil.ItemCallback<Pokemon>() {
         oldItem: Pokemon,
         newItem: Pokemon
     ) = oldItem == newItem
+}
+
+sealed interface PokemonAction {
+    data class OnClick(val pokemon: Pokemon) : PokemonAction
 }

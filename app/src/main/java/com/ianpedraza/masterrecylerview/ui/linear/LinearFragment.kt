@@ -7,7 +7,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -16,6 +15,7 @@ import androidx.lifecycle.Lifecycle
 import com.ianpedraza.masterrecylerview.R
 import com.ianpedraza.masterrecylerview.databinding.FragmentLinearBinding
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.refresh
+import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.showToast
 
 class LinearFragment : Fragment(), MenuProvider {
 
@@ -32,9 +32,13 @@ class LinearFragment : Fragment(), MenuProvider {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLinearBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupUI()
         subscribeObservers()
-        return binding.root
     }
 
     private fun setupUI() {
@@ -63,14 +67,11 @@ class LinearFragment : Fragment(), MenuProvider {
         binding.root.refresh { viewModel.fetchData() }
     }
 
-    private fun onClickListener(action: Action) = when (action) {
-        is Action.AdClicked -> showToast("Ad clicked")
-        is Action.CoverClicked -> showToast("Cover clicked")
-        is Action.DescriptionClicked -> showToast("Description clicked")
+    private fun onClickListener(travelsAction: TravelsAction) = when (travelsAction) {
+        is TravelsAction.AdClicked -> showToast("Ad clicked")
+        is TravelsAction.CoverClicked -> showToast("Cover clicked")
+        is TravelsAction.DescriptionClicked -> showToast("Description clicked")
     }
-
-    private fun showToast(message: String) =
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) =
         menuInflater.inflate(R.menu.menu, menu)

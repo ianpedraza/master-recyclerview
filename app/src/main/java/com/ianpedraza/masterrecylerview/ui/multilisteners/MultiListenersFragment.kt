@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ianpedraza.masterrecylerview.databinding.FragmentMultiListenersBinding
+import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.showToast
 
 class MultiListenersFragment : Fragment() {
     private var _binding: FragmentMultiListenersBinding? = null
@@ -23,11 +24,13 @@ class MultiListenersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMultiListenersBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupUI()
         subscribeObservers()
-
-        return binding.root
     }
 
     private fun setupUI() {
@@ -49,6 +52,34 @@ class MultiListenersFragment : Fragment() {
     private fun subscribeObservers() {
         viewModel.contactsList.observe(viewLifecycleOwner) { contacts ->
             adapter.submitList(contacts)
+        }
+
+        viewModel.onCallAction.observe(viewLifecycleOwner) { contact ->
+            contact?.let {
+                showToast("Call: ${contact.phone}")
+                viewModel.onContactCalled()
+            }
+        }
+
+        viewModel.onMessageAction.observe(viewLifecycleOwner) { contact ->
+            contact?.let {
+                showToast("Message: ${contact.phone}")
+                viewModel.onContactMessaged()
+            }
+        }
+
+        viewModel.onVideoCallAction.observe(viewLifecycleOwner) { contact ->
+            contact?.let {
+                showToast("VideoCall: ${contact.phone}")
+                viewModel.onContactVideoCalled()
+            }
+        }
+
+        viewModel.onNavigateToContact.observe(viewLifecycleOwner) { contact ->
+            contact?.let {
+                showToast("Navigate to: ${contact.name}")
+                viewModel.onContactNavigated()
+            }
         }
     }
 }

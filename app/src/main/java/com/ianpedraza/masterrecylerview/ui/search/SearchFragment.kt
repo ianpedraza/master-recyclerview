@@ -7,7 +7,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -20,6 +19,8 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ianpedraza.masterrecylerview.R
 import com.ianpedraza.masterrecylerview.databinding.FragmentSearchBinding
+import com.ianpedraza.masterrecylerview.ui.paging.PokemonAction
+import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -39,9 +40,13 @@ class SearchFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupUI()
         subscribeObservers()
-        return binding.root
     }
 
     private fun setupUI() {
@@ -51,11 +56,17 @@ class SearchFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
 
     private fun setupRecyclerView() {
         val manager = GridLayoutManager(requireContext(), 2)
-        adapter = PokemonSearchAdapter()
+        adapter = PokemonSearchAdapter() { action -> onAction(action) }
 
         binding.recyclerViewPokemonSearch.apply {
             this.layoutManager = manager
             this.adapter = this@SearchFragment.adapter
+        }
+    }
+
+    private fun onAction(action: PokemonAction) {
+        when (action) {
+            is PokemonAction.OnClick -> showToast("Pokemon clicked")
         }
     }
 
@@ -85,7 +96,7 @@ class SearchFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
                 }
 
                 errorState?.let {
-                    Toast.makeText(requireContext(), it.error.toString(), Toast.LENGTH_LONG).show()
+                    showToast(it.error.toString())
                 }
             }
         }

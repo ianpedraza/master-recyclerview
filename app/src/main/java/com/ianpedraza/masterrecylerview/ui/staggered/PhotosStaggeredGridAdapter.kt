@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ianpedraza.masterrecylerview.data.photos.Photo
 import com.ianpedraza.masterrecylerview.databinding.ItemStaggeredGridPhotosBinding
+import com.ianpedraza.masterrecylerview.ui.grid.PhotosAction
 import com.ianpedraza.masterrecylerview.ui.grid.PhotosDiffCallback
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.loadImageByUrl
 
-class PhotosStaggeredGridAdapter :
-    ListAdapter<Photo, PhotosStaggeredGridAdapter.ViewHolder>(PhotosDiffCallback) {
+class PhotosStaggeredGridAdapter(
+    private val onAction: (PhotosAction) -> Unit
+) : ListAdapter<Photo, PhotosStaggeredGridAdapter.ViewHolder>(PhotosDiffCallback) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -20,7 +22,7 @@ class PhotosStaggeredGridAdapter :
     override fun onBindViewHolder(
         holder: ViewHolder,
         position: Int
-    ) = holder.bind(getItem(position))
+    ) = holder.bind(getItem(position), onAction)
 
     class ViewHolder private constructor(
         private val binding: ItemStaggeredGridPhotosBinding
@@ -34,8 +36,9 @@ class PhotosStaggeredGridAdapter :
             }
         }
 
-        fun bind(item: Photo) {
+        fun bind(item: Photo, onAction: (PhotosAction) -> Unit) {
             with(binding) {
+                root.setOnClickListener { onAction(PhotosAction.OnClick(item)) }
                 imageViewStaggeredGrid.loadImageByUrl(item.image)
             }
         }

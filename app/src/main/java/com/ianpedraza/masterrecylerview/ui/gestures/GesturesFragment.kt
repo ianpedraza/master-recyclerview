@@ -9,7 +9,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -27,6 +26,7 @@ import com.ianpedraza.masterrecylerview.domain.helpers.gestures.RecyclerViewDrag
 import com.ianpedraza.masterrecylerview.domain.helpers.gestures.RecyclerViewSwipeDataHelper
 import com.ianpedraza.masterrecylerview.domain.helpers.gestures.RecyclerViewSwipeDataHelper.SwipeHolder
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.refresh
+import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.showToast
 
 class GesturesFragment : Fragment(), MenuProvider {
 
@@ -40,7 +40,7 @@ class GesturesFragment : Fragment(), MenuProvider {
     }
 
     private val tasksClickListener = TasksClickListener { taskId ->
-        Toast.makeText(requireContext(), taskId, Toast.LENGTH_SHORT).show()
+        showToast("clicked")
     }
 
     private val startHolder by lazy {
@@ -87,11 +87,13 @@ class GesturesFragment : Fragment(), MenuProvider {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentGesturesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupUI()
         subscribeObservers()
-
-        return binding.root
     }
 
     private fun setupUI() {

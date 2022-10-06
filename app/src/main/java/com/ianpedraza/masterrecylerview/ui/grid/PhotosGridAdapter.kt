@@ -9,7 +9,9 @@ import com.ianpedraza.masterrecylerview.data.photos.Photo
 import com.ianpedraza.masterrecylerview.databinding.ItemGridPhotosBinding
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.loadImageByUrl
 
-class PhotosGridAdapter : ListAdapter<Photo, PhotosGridAdapter.ViewHolder>(PhotosDiffCallback) {
+class PhotosGridAdapter(
+    private val onAction: (PhotosAction) -> Unit
+) : ListAdapter<Photo, PhotosGridAdapter.ViewHolder>(PhotosDiffCallback) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -20,7 +22,7 @@ class PhotosGridAdapter : ListAdapter<Photo, PhotosGridAdapter.ViewHolder>(Photo
         holder: ViewHolder,
         position: Int
     ) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), onAction)
     }
 
     class ViewHolder private constructor(
@@ -35,7 +37,8 @@ class PhotosGridAdapter : ListAdapter<Photo, PhotosGridAdapter.ViewHolder>(Photo
             }
         }
 
-        fun bind(item: Photo) = with(binding) {
+        fun bind(item: Photo, onAction: (PhotosAction) -> Unit) = with(binding) {
+            root.setOnClickListener { onAction(PhotosAction.OnClick(item)) }
             imageViewPhotoGrid.loadImageByUrl(item.image)
         }
     }
@@ -51,4 +54,8 @@ object PhotosDiffCallback : DiffUtil.ItemCallback<Photo>() {
         oldItem: Photo,
         newItem: Photo
     ): Boolean = oldItem == newItem
+}
+
+sealed interface PhotosAction {
+    data class OnClick(val photo: Photo) : PhotosAction
 }

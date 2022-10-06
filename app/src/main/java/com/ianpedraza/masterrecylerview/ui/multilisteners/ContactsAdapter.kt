@@ -37,15 +37,10 @@ class ContactsAdapter :
             with(binding) {
                 imageViewItemContacts.loadCircleImageByUrl(item.photo)
                 textViewItemContactsName.text = item.name
-                imageButtonItemContactsPhone.setOnClickListener {
-                    item.onCall()
-                }
-                imageButtonItemContactsMessage.setOnClickListener {
-                    item.onMessage()
-                }
-                imageButtonItemContactsVideoCall.setOnClickListener {
-                    item.onVideoCall()
-                }
+                root.setOnClickListener { item.onClick() }
+                imageButtonItemContactsPhone.setOnClickListener { item.onCall() }
+                imageButtonItemContactsMessage.setOnClickListener { item.onMessage() }
+                imageButtonItemContactsVideoCall.setOnClickListener { item.onVideoCall() }
             }
         }
     }

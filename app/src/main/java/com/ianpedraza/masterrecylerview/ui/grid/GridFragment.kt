@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.ianpedraza.masterrecylerview.R
 import com.ianpedraza.masterrecylerview.databinding.FragmentGridBinding
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.refresh
+import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.showToast
 
 class GridFragment : Fragment(), MenuProvider {
 
@@ -32,11 +33,13 @@ class GridFragment : Fragment(), MenuProvider {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentGridBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupUI()
         subscribeObservers()
-
-        return binding.root
     }
 
     private fun setupUI() {
@@ -51,7 +54,7 @@ class GridFragment : Fragment(), MenuProvider {
     }
 
     private fun setupRecyclerView() {
-        adapter = PhotosGridAdapter()
+        adapter = PhotosGridAdapter() { action -> onAction(action) }
 
         val manager = GridLayoutManager(requireActivity(), 3).apply {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -65,6 +68,12 @@ class GridFragment : Fragment(), MenuProvider {
         binding.recyclerViewGridPhotos.apply {
             this.adapter = this@GridFragment.adapter
             layoutManager = manager
+        }
+    }
+
+    private fun onAction(action: PhotosAction) {
+        when (action) {
+            is PhotosAction.OnClick -> showToast("Photo clicked")
         }
     }
 

@@ -4,17 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toBitmap
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ianpedraza.masterrecylerview.data.pokemon.models.local.Pokemon
 import com.ianpedraza.masterrecylerview.databinding.ItemPokemonSearchBinding
+import com.ianpedraza.masterrecylerview.ui.paging.PokemonAction
+import com.ianpedraza.masterrecylerview.ui.paging.PokemonDiffCallback
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.capitalizeFirst
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.getDominantColor
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.loadImageByUrl
 import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.toPokedexNumber
 
-class PokemonSearchAdapter :
-    PagingDataAdapter<Pokemon, PokemonSearchAdapter.ViewHolder>(PokemonDiffCallback) {
+class PokemonSearchAdapter(
+    private val onAction: (PokemonAction) -> Unit
+) : PagingDataAdapter<Pokemon, PokemonSearchAdapter.ViewHolder>(PokemonDiffCallback) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -22,7 +24,7 @@ class PokemonSearchAdapter :
     ) = ViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getItem(position)?.let { pokemon -> holder.bind(pokemon) }
+        getItem(position)?.let { pokemon -> holder.bind(pokemon, onAction) }
     }
 
     class ViewHolder(
@@ -37,7 +39,8 @@ class PokemonSearchAdapter :
             }
         }
 
-        fun bind(pokemon: Pokemon): Unit = with(pokemon) {
+        fun bind(item: Pokemon, onAction: (PokemonAction) -> Unit): Unit = with(item) {
+            binding.root.setOnClickListener { onAction(PokemonAction.OnClick(item)) }
             binding.textViewPokemonSearchName.text = name.capitalizeFirst()
             binding.textViewPokemonSearchNumber.text = id.toPokedexNumber()
 
@@ -50,16 +53,4 @@ class PokemonSearchAdapter :
             }
         }
     }
-}
-
-private object PokemonDiffCallback : DiffUtil.ItemCallback<Pokemon>() {
-    override fun areItemsTheSame(
-        oldItem: Pokemon,
-        newItem: Pokemon
-    ) = oldItem.id == newItem.id
-
-    override fun areContentsTheSame(
-        oldItem: Pokemon,
-        newItem: Pokemon
-    ) = oldItem == newItem
 }

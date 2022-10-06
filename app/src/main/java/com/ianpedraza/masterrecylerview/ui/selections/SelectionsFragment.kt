@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ianpedraza.masterrecylerview.R
 import com.ianpedraza.masterrecylerview.databinding.FragmentSelectionsBinding
 import com.ianpedraza.masterrecylerview.ui.MainActivity
+import com.ianpedraza.masterrecylerview.utils.ViewExtensions.Companion.showToast
 
 class SelectionsFragment : Fragment(), ActionMode.Callback, MenuProvider {
 
@@ -30,7 +31,7 @@ class SelectionsFragment : Fragment(), ActionMode.Callback, MenuProvider {
     private val viewModel: ChatsViewModel by viewModels()
 
     private lateinit var adapter: ChatsAdapter
-    private var tracker: SelectionTracker<Long>? = null
+    private lateinit var tracker: SelectionTracker<Long>
     private var actionMode: ActionMode? = null
 
     override fun onCreateView(
@@ -39,15 +40,13 @@ class SelectionsFragment : Fragment(), ActionMode.Callback, MenuProvider {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSelectionsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        if (savedInstanceState != null) {
-            tracker?.onRestoreInstanceState(savedInstanceState)
-        }
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupUI()
         subscribeObservers()
-
-        return binding.root
     }
 
     private fun setupUI() {
@@ -61,7 +60,7 @@ class SelectionsFragment : Fragment(), ActionMode.Callback, MenuProvider {
     }
 
     private fun setupRecyclerView() {
-        adapter = ChatsAdapter()
+        adapter = ChatsAdapter() { action -> onAction(action) }
 
         val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         val decoration = DividerItemDecoration(requireContext(), manager.orientation)
@@ -88,6 +87,12 @@ class SelectionsFragment : Fragment(), ActionMode.Callback, MenuProvider {
         adapter.tracker = tracker
     }
 
+    private fun onAction(action: ChatsAction) {
+        when (action) {
+            is ChatsAction.OnClick -> showToast("Chat clicked")
+        }
+    }
+
     private fun subscribeObservers() {
         viewModel.selected.observe(viewLifecycleOwner) { selected ->
             onItemAction(selected.size)
@@ -97,10 +102,10 @@ class SelectionsFragment : Fragment(), ActionMode.Callback, MenuProvider {
             adapter.submitList(chats)
         }
 
-        tracker?.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
+        tracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
             override fun onSelectionChanged() {
                 super.onSelectionChanged()
-                val items = tracker?.selection!!.toList()
+                val items = tracker.selection.toList()
                 viewModel.setSelected(items)
             }
         })
@@ -121,8 +126,13 @@ class SelectionsFragment : Fragment(), ActionMode.Callback, MenuProvider {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        tracker.onSaveInstanceState(outState)
         super.onSaveInstanceState(outState)
-        tracker?.onSaveInstanceState(outState)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        tracker.onRestoreInstanceState(savedInstanceState)
+        super.onViewStateRestored(savedInstanceState)
     }
 
     companion object {
